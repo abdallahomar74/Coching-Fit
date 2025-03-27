@@ -1,0 +1,113 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\TAG\\source\\repos\\projet1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|c:\\users\\tag\\source\\repos\\projet1\\projet1\\services\\subscriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|solutionrelative:projet1\\services\\subscriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|c:\\users\\tag\\source\\repos\\projet1\\projet1\\controllers\\subscriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|solutionrelative:projet1\\controllers\\subscriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|c:\\users\\tag\\source\\repos\\projet1\\projet1\\services\\isubscriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|solutionrelative:projet1\\services\\isubscriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|c:\\users\\tag\\source\\repos\\projet1\\projet1\\data\\models\\subscriptionplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|solutionrelative:projet1\\data\\models\\subscriptionplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|c:\\users\\tag\\source\\repos\\projet1\\projet1\\models\\gettrainersubscribeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0783D4AA-7520-4FBE-B10C-1D79CA59BBB6}|projet1\\projet1.csproj|solutionrelative:projet1\\models\\gettrainersubscribeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GetTrainerSubscribedData.cs",
+              "DocumentMoniker": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Models\\GetTrainerSubscribedData.cs",
+              "RelativeDocumentMoniker": "projet1\\Models\\GetTrainerSubscribedData.cs",
+              "ToolTip": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Models\\GetTrainerSubscribedData.cs",
+              "RelativeToolTip": "projet1\\Models\\GetTrainerSubscribedData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T21:17:10.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ISubscriptionService.cs",
+              "DocumentMoniker": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Services\\ISubscriptionService.cs",
+              "RelativeDocumentMoniker": "projet1\\Services\\ISubscriptionService.cs",
+              "ToolTip": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Services\\ISubscriptionService.cs",
+              "RelativeToolTip": "projet1\\Services\\ISubscriptionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T20:39:21.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SubscriptionService.cs",
+              "DocumentMoniker": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Services\\SubscriptionService.cs",
+              "RelativeDocumentMoniker": "projet1\\Services\\SubscriptionService.cs",
+              "ToolTip": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Services\\SubscriptionService.cs",
+              "RelativeToolTip": "projet1\\Services\\SubscriptionService.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAmwGYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T20:27:01.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SubscriptionController.cs",
+              "DocumentMoniker": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Controllers\\SubscriptionController.cs",
+              "RelativeDocumentMoniker": "projet1\\Controllers\\SubscriptionController.cs",
+              "ToolTip": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Controllers\\SubscriptionController.cs",
+              "RelativeToolTip": "projet1\\Controllers\\SubscriptionController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAwDgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T20:22:47.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SubscriptionPlan.cs",
+              "DocumentMoniker": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Data\\Models\\SubscriptionPlan.cs",
+              "RelativeDocumentMoniker": "projet1\\Data\\Models\\SubscriptionPlan.cs",
+              "ToolTip": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\Data\\Models\\SubscriptionPlan.cs",
+              "RelativeToolTip": "projet1\\Data\\Models\\SubscriptionPlan.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAmwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T14:24:15.183Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
