@@ -15,12 +15,12 @@ namespace projet1.Data.Models
         public ApplicationUser Coach { get; set; }
 
         [Required]
-        public decimal Price { get; set; } // The subscription price
+        public decimal Price { get; set; } 
 
         [Required]
-        public int DurationInDays { get; set; } // Subscription validity period (in days)
+        public int DurationInDays { get; set; } 
 
-        public string Details { get; set; } // Additional subscription details
+        public string Details { get; set; } 
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }

@@ -1,0 +1,2 @@
+2025-05-12 10:27:37.212 +03:00 [INF] HTTP GET /swagger/index.html responded 200 in 93.8359 ms
+2025-05-12 10:27:39.116 +03:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 44.7496 ms

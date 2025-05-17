@@ -20,23 +20,30 @@ namespace projet1.Controllers
           
         }
 
-        [Authorize("User")]
+        [Authorize(Roles = "User")]
         [HttpGet("SubscriptionPlans")]
         public async Task<IActionResult> GetSubscriptionPlans()
         {
             var result = await _subscriptionService.GetSubscriptionPlansAsync();
             return result;
         }
+        [Authorize]
+        [HttpGet("SubscriptionPlanByCoach")]
+        public async Task<IActionResult> GetSubscriptionPlanByCoach( string userName)
+        {
+            var result = await _subscriptionService.GetSubscriptionPlansByCoachNameAsync(userName);
+            return result;
+        }
 
         [Authorize(Roles = "User")]
         [HttpPost("Subscribe")]
-        public async Task<IActionResult> SubscribeToCoach([FromQuery] int subscriptionPlanId)
+        public async Task<IActionResult> SubscribeToCoach(int subscriptionPlanId)
         {
             var result = await _subscriptionService.SubscribeUserToCoachAsync(subscriptionPlanId, User);
             return result;
         }
 
-        [Authorize(Roles = "Coach")]
+        [Authorize]
         [HttpGet("Subscribers")]
         public async Task<IActionResult> GetSubscribers()
         {

@@ -18,6 +18,8 @@ namespace projet1.Controllers
         {
             _authService = authService;
         }
+        [HttpGet("ping")]
+        public IActionResult Ping() => Ok("pong");
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody]RegisterModel model)
         {
@@ -52,6 +54,21 @@ namespace projet1.Controllers
             return Ok(Coaches);
         }
         [Authorize]
+        [HttpPatch("EditProfile")]
+        public async Task<IActionResult> UpdateUserProfileAsync([FromBody] UpdateProfileDataModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _authService.UpdateUserProfileAsync(model,User);
+            if (!response.IsAuthenticated)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(response);
+        }
+        [Authorize]
         [HttpPatch("EditImage")]
         public async Task<IActionResult> UpdateUserImageAsync([FromForm] UpdateImageModel model)
         {
@@ -65,6 +82,31 @@ namespace projet1.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] EmailModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _authService.ForgotPasswordAsync(model.Email);
+            return Accepted(new { result.Message });
+        }
+
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var res = await _authService.ResetPasswordAsync(
+                model.Email, model.Token, model.NewPassword);
+
+            if (!res.Succeeded)
+                return BadRequest(res.Errors.Select(e => e.Description));
+
+            return Ok("Password has been reset.");
         }
 
     }

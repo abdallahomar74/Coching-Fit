@@ -1,0 +1,4 @@
+2025-05-16 17:27:02.019 +03:00 [INF] HTTP GET /swagger/index.html responded 200 in 61.9519 ms
+2025-05-16 17:27:03.410 +03:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 19.9008 ms
+2025-05-16 17:27:03.428 +03:00 [INF] HTTP GET /swagger/favicon-32x32.png responded 200 in 9.0467 ms
+2025-05-16 17:27:06.736 +03:00 [INF] HTTP GET /api/Auth/ping responded 200 in 232.5985 ms

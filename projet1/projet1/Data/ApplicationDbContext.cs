@@ -15,6 +15,9 @@ namespace projet1.Data
 
         public DbSet<CoachSubscription> coachsubscriptions { get; set; }
         public DbSet<SubscriptionPlan> subscriptionplans { get; set; }
+        public DbSet<PersonalizedPlan> PersonalizedPlans { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,9 +28,14 @@ namespace projet1.Data
 
             builder.Entity<CoachSubscription>()
         .HasOne(cs => cs.SubscriptionPlan)
-        .WithMany() // إذا كان لديك مجموعة من الاشتراكات في SubscriptionPlan يمكنك استخدام .WithMany(sp => sp.CoachSubscriptions)
+        .WithMany() 
         .HasForeignKey(cs => cs.SubscriptionPlanId)
         .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<ChatMessage>()
+        .HasOne(cm => cm.Subscription)
+        .WithMany() 
+        .HasForeignKey(cm => cm.CoachSubscriptionId)
+        .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }

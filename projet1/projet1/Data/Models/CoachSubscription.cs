@@ -8,7 +8,6 @@ namespace projet1.Data.Models
         [Key]
         public int Id { get; set; }
 
-        // Reference to the subscription plan chosen by the subscriber.
         [Required]
         public int SubscriptionPlanId { get; set; }
 
@@ -23,7 +22,7 @@ namespace projet1.Data.Models
 
         public DateTime SubscriptionDate { get; set; } = DateTime.UtcNow;
 
-        // This date is calculated based on the plan's duration.
+
         public DateTime ExpirationDate { get; set; }
     }
 

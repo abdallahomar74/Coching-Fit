@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\wwwroot\\uploads\\personalized\\6b694359-fd05-4fab-823f-da9710bd5759.pdf",
+      "PackagePath": "staticwebassets\\uploads\\personalized\\6b694359-fd05-4fab-823f-da9710bd5759.pdf"
+    },
+    {
+      "Id": "C:\\Users\\TAG\\source\\repos\\projet1\\projet1\\wwwroot\\uploads\\personalized\\f2e08acf-e719-4747-8536-9be45364a085.pdf",
+      "PackagePath": "staticwebassets\\uploads\\personalized\\f2e08acf-e719-4747-8536-9be45364a085.pdf"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\win-x86\\staticwebassets\\msbuild.build.projet1.props",
+      "PackagePath": "build\\projet1.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\win-x86\\staticwebassets\\msbuild.buildMultiTargeting.projet1.props",
+      "PackagePath": "buildMultiTargeting\\projet1.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\win-x86\\staticwebassets\\msbuild.buildTransitive.projet1.props",
+      "PackagePath": "buildTransitive\\projet1.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\win-x86\\staticwebassets\\msbuild.projet1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\win-x86\\staticwebassets\\msbuild.projet1.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

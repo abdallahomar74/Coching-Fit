@@ -8,9 +8,10 @@ namespace projet1.Services
 {
     public interface ISubscriptionService
     {
-        Task<ActionResult> SubscribeUserToCoachAsync(int subscriptionPlanId,ClaimsPrincipal user);
-        Task<ActionResult<List<GetTrainerSubscribedData>>> GetSubscribersForCoachAsync(ClaimsPrincipal user);
+        Task<List<GetTrainerSubscribedData>> GetSubscribersForCoachAsync(ClaimsPrincipal coachId);
+        Task<ActionResult> GetSubscriptionPlansByCoachNameAsync(string userName);
+        Task<ActionResult> SubscribeUserToCoachAsync( int subscriptionPlanId,ClaimsPrincipal user);
+        Task<ActionResult> GetSubscriptionPlansAsync();
         Task<ActionResult> CreateSubscriptionPlanAsync(CreateSubscriptionPlanModel model, ClaimsPrincipal user);
-        Task<ActionResult> GetSubscriptionPlansAsync(); 
     }
 }

@@ -27,8 +27,50 @@
   },
   {
     "ContainingType": "projet1.Controllers.AuthController",
+    "Method": "UpdateUserProfileAsync",
+    "RelativePath": "api/Auth/EditProfile",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "projet1.Models.UpdateProfileDataModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Auth/ForgotPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "projet1.Models.EmailModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.AuthController",
     "Method": "GetProfileAsync",
     "RelativePath": "api/Auth/GetProfile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.AuthController",
+    "Method": "Ping",
+    "RelativePath": "api/Auth/ping",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -53,6 +95,22 @@
   },
   {
     "ContainingType": "projet1.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Auth/ResetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "projet1.Models.ResetPasswordModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.AuthController",
     "Method": "GetTokenAsync",
     "RelativePath": "api/Auth/token",
     "HttpMethod": "POST",
@@ -63,6 +121,53 @@
         "Name": "model",
         "Type": "projet1.Models.TokenRequestModel",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.PersonalizedPlanController",
+    "Method": "MyPlans",
+    "RelativePath": "api/PersonalizedPlan/myPlans",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.PersonalizedPlanController",
+    "Method": "PublishForSubscriber",
+    "RelativePath": "api/PersonalizedPlan/publishPersonalizedPlan",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subscriberUserName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.SendAudioController",
+    "Method": "UploadAudio",
+    "RelativePath": "api/SendAudio/upload-audio",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -111,6 +216,22 @@
   },
   {
     "ContainingType": "projet1.Controllers.SubscriptionController",
+    "Method": "GetSubscriptionPlanByCoach",
+    "RelativePath": "api/Subscription/SubscriptionPlanByCoach",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.SubscriptionController",
     "Method": "GetSubscriptionPlans",
     "RelativePath": "api/Subscription/SubscriptionPlans",
     "HttpMethod": "GET",
@@ -118,26 +239,5 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "projet1.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[projet1.WeatherForecast, projet1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

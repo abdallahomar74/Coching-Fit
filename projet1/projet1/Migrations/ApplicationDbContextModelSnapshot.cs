@@ -177,6 +177,9 @@ namespace projet1.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -236,6 +239,42 @@ namespace projet1.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("projet1.Data.Models.ChatMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AudioPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CoachSubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachSubscriptionId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("ChatMessages");
+                });
+
             modelBuilder.Entity("projet1.Data.Models.CoachSubscription", b =>
                 {
                     b.Property<int>("Id")
@@ -264,6 +303,39 @@ namespace projet1.Migrations
                     b.HasIndex("SubscriptionPlanId");
 
                     b.ToTable("coachsubscriptions");
+                });
+
+            modelBuilder.Entity("projet1.Data.Models.PersonalizedPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CoachSubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachSubscriptionId");
+
+                    b.ToTable("PersonalizedPlans");
                 });
 
             modelBuilder.Entity("projet1.Data.Models.SubscriptionPlan", b =>
@@ -349,6 +421,25 @@ namespace projet1.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("projet1.Data.Models.ChatMessage", b =>
+                {
+                    b.HasOne("projet1.Data.Models.CoachSubscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("CoachSubscriptionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("projet1.Data.Models.ApplicationUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sender");
+
+                    b.Navigation("Subscription");
+                });
+
             modelBuilder.Entity("projet1.Data.Models.CoachSubscription", b =>
                 {
                     b.HasOne("projet1.Data.Models.ApplicationUser", "Subscriber")
@@ -366,6 +457,17 @@ namespace projet1.Migrations
                     b.Navigation("Subscriber");
 
                     b.Navigation("SubscriptionPlan");
+                });
+
+            modelBuilder.Entity("projet1.Data.Models.PersonalizedPlan", b =>
+                {
+                    b.HasOne("projet1.Data.Models.CoachSubscription", "CoachSubscription")
+                        .WithMany()
+                        .HasForeignKey("CoachSubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CoachSubscription");
                 });
 
             modelBuilder.Entity("projet1.Data.Models.SubscriptionPlan", b =>

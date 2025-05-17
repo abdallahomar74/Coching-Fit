@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,12 +18,16 @@ namespace projet1.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly JWT _jwt;
+        private readonly IAppEmailSender _emailSender;
+        private readonly string _frontendUrl;
 
 
-        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt)
+        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, IAppEmailSender emailSender, IConfiguration configuration)
         {
             this._userManager = userManager;
             _jwt = jwt.Value;
+            _emailSender = emailSender;
+            _frontendUrl = configuration["FrontendUrl"];
         }
         
 
@@ -160,20 +166,87 @@ namespace projet1.Services
                 return new AuthModel { Message = errors };
             }
 
-            var jwtSecurityToken = await CreateJwtToken(user);
 
             return new AuthModel
             {
                 Message = "Image updated successfully.",
+                Image = stream.ToArray(),
+                IsAuthenticated = true
+            };
+        }
+
+        public async Task<AuthModel> UpdateUserProfileAsync([FromBody] UpdateProfileDataModel model, ClaimsPrincipal currentUser)
+        {
+
+            var userId = currentUser.FindFirst("uid")?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return new AuthModel { Message = "User not found or not authenticated." };
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return new AuthModel { Message = "User not found." };
+            user.Email = model.Email;
+            user.UserName = model.UserName;
+            user.Weight = model.Weight;
+            user.Height = model.Height;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                return new AuthModel { Message = errors };
+            }
+
+            var jwtSecurityToken = await CreateJwtToken(user);
+
+            return new AuthModel
+            {
+                Message = "Profile Updated Successfully. ",
                 Email = user.Email!,
                 UserName = user.UserName!,
-                Roles = (await _userManager.GetRolesAsync(user)).ToList(),
                 IsAuthenticated = true,
-                Image = stream.ToArray(),
             };
         }
 
 
+        public async Task<ForgotPasswordResult> ForgotPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return new()
+                {
+                    Succeeded = true,
+                    Message = "If that email is registered you will receive a link."
+                };                                               // hide existence :contentReference[oaicite:0]{index=0}
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+            var link = $"{_frontendUrl}/ResetPassword?email={email}&token={encodedToken}";
+
+            await _emailSender.SendEmailAsync(email, "Reset Password",
+                $"Click here to reset your password: <a href='{link}'>Reset</a>"
+            );                                                // send email :contentReference[oaicite:1]{index=1}
+
+            return new()
+            {
+                Succeeded = true,
+                Token = encodedToken,    // so you can test without email
+                Message = "Reset link sent."
+            };
+        }
+
+
+        public async Task<IdentityResult> ResetPasswordAsync(string email, string encodedToken, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+
+            // فك ترميز الـ Token بشكل صحيح
+            var decodedTokenBytes = WebEncoders.Base64UrlDecode(encodedToken);
+            var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
+
+            return await _userManager.ResetPasswordAsync(user, decodedToken, newPassword);
+        }
 
 
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
