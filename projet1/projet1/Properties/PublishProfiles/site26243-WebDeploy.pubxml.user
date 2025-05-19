@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB61kAC9mmkqTtyfJFhWSHwAAAAACAAAAAAAQZgAAAAEAACAAAAAnK+bdJTQrgJTpf5oSQpc3mJxIhaDhaAlFf9PZyY33QAAAAAAOgAAAAAIAACAAAABLbFq+vBtf/oFjE1IPDCEI1LKvliEu8bZQEhXtobjLvSAAAABuP/jUtbMpJrCddRAjXCKopuEaLB4X7Ai8iU9ej8Z1qUAAAACKFpQoqUxCzXO6p0kSUMkSPMiTUulaQSIjFtVU2ymgA0x+/hycBK9B1nj/6d81phA4XRvSzVbRiD3BgFmN9puV</EncryptedPassword>
+    <History>True|2025-05-19T12:51:36.7231546Z||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=db19411.public.databaseasp.net%3b Database=db19411%3b User Id=db19411%3b Password=3Lb_=8Qcy+9C%3b Encrypt=False%3b MultipleActiveResultSets=True%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="projet1.Data.ApplicationDbContext">
+      <Value>Server=db19411.public.databaseasp.net%3b Database=db19411%3b User Id=db19411%3b Password=3Lb_=8Qcy+9C%3b Encrypt=False%3b MultipleActiveResultSets=True%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

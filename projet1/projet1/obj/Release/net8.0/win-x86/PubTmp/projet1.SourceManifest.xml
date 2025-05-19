@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
   <IisApp path="C:\Users\TAG\source\repos\projet1\projet1\obj\Release\net8.0\win-x86\PubTmp\Out\" />
+  <dbfullsql path="C:\Users\TAG\source\repos\projet1\projet1\obj\Release\net8.0\win-x86\PubTmp\EFSQLScripts\projet1.Data.ApplicationDbContext.sql" />
 </sitemanifest>
