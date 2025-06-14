@@ -231,7 +231,66 @@
         }
       }
     },
-    "/api/PersonalizedPlan/publishPersonalizedPlan": {
+    "/api/CV/upload": {
+      "post": {
+        "tags": [
+          "CV"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "CVFile"
+                ],
+                "type": "object",
+                "properties": {
+                  "CVFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "CVFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CV/my-cv": {
+      "get": {
+        "tags": [
+          "CV"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CV/delete": {
+      "delete": {
+        "tags": [
+          "CV"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PersonalizedPlan/upload": {
       "post": {
         "tags": [
           "PersonalizedPlan"
@@ -272,10 +331,32 @@
         }
       }
     },
-    "/api/PersonalizedPlan/myPlans": {
+    "/api/PersonalizedPlan/GetSubscriberFiles": {
       "get": {
         "tags": [
           "PersonalizedPlan"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PersonalizedPlan/download": {
+      "get": {
+        "tags": [
+          "PersonalizedPlan"
+        ],
+        "parameters": [
+          {
+            "name": "planId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {

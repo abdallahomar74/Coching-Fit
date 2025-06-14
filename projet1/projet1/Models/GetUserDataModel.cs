@@ -11,5 +11,9 @@
         public float Height { get; set; }
         public string Gender { get; set; }
         public byte[]? Image { get; set; }
+        public string? CVFileName { get; set; }
+        public string? CVViewUrl { get; set; }
+        public string? CVDownloadUrl { get; set; }
+        public DateTime? CVUploadDate { get; set; }
     }
 }

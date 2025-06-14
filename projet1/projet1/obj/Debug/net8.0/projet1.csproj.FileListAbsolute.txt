@@ -318,3 +318,10 @@ C:\Users\TAG\source\repos\projet1\projet1\obj\Debug\net8.0\projet1.pdb
 C:\Users\TAG\source\repos\projet1\projet1\obj\Debug\net8.0\projet1.genruntimeconfig.cache
 C:\Users\TAG\source\repos\projet1\projet1\obj\Debug\net8.0\ref\projet1.dll
 C:\Users\TAG\source\repos\projet1\projet1\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\fitness-coach-storage-15cd87812181.json
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\Google.Apis.dll
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\Google.Apis.Auth.dll
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\Google.Apis.Drive.v3.dll
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\System.Management.dll
+C:\Users\TAG\source\repos\projet1\projet1\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll

@@ -126,9 +126,61 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "projet1.Controllers.CVController",
+    "Method": "DeleteCV",
+    "RelativePath": "api/CV/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.CVController",
+    "Method": "GetMyCV",
+    "RelativePath": "api/CV/my-cv",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.CVController",
+    "Method": "UploadCV",
+    "RelativePath": "api/CV/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CVFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "projet1.Controllers.PersonalizedPlanController",
-    "Method": "MyPlans",
-    "RelativePath": "api/PersonalizedPlan/myPlans",
+    "Method": "GetPlanDownloadUrl",
+    "RelativePath": "api/PersonalizedPlan/download",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "planId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projet1.Controllers.PersonalizedPlanController",
+    "Method": "GetSubscriberPlans",
+    "RelativePath": "api/PersonalizedPlan/GetSubscriberFiles",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -137,8 +189,8 @@
   },
   {
     "ContainingType": "projet1.Controllers.PersonalizedPlanController",
-    "Method": "PublishForSubscriber",
-    "RelativePath": "api/PersonalizedPlan/publishPersonalizedPlan",
+    "Method": "UploadPlan",
+    "RelativePath": "api/PersonalizedPlan/upload",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

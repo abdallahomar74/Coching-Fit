@@ -20,6 +20,10 @@ namespace projet1.Data.Models
         public string Gender { get; set; }
         public byte[]? Image { get; set; }
 
-
+        public string? CVFileId { get; set; }          // معرف الملف في Google Drive
+        public string? CVFileName { get; set; }        // اسم الملف الأصلي
+        public string? CVViewUrl { get; set; }         // رابط عرض الملف
+        public string? CVDownloadUrl { get; set; }     // رابط تحميل الملف
+        public DateTime? CVUploadDate { get; set; }    // تاريخ رفع الملف
     }
 }

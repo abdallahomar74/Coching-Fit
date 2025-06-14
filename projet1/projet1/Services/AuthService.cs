@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using projet1.Data.Models;
 using projet1.Helpers;
 using projet1.Models;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -20,14 +22,16 @@ namespace projet1.Services
         private readonly JWT _jwt;
         private readonly IAppEmailSender _emailSender;
         private readonly string _frontendUrl;
+        IServiceProvider _serviceProvider;
 
 
-        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, IAppEmailSender emailSender, IConfiguration configuration)
+        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, IAppEmailSender emailSender, IConfiguration configuration, IServiceProvider serviceProvider)
         {
             this._userManager = userManager;
             _jwt = jwt.Value;
             _emailSender = emailSender;
             _frontendUrl = configuration["FrontendUrl"];
+            _serviceProvider = serviceProvider;
         }
         
 
@@ -117,7 +121,11 @@ namespace projet1.Services
                 Weight = user.Weight,
                 Gender = user.Gender,
                 Roles = (await _userManager.GetRolesAsync(user)).ToList(),
-                Image = user.Image
+                Image = user.Image,
+                CVFileName = user.CVFileName,
+                CVViewUrl = user.CVViewUrl,
+                CVDownloadUrl = user.CVDownloadUrl,
+                CVUploadDate = user.CVUploadDate
             };
         }
 
@@ -136,7 +144,11 @@ namespace projet1.Services
                 Weight = user.Weight,
                 Height = user.Height,
                 Gender = user.Gender,
-                Image = user.Image
+                Image = user.Image,
+                CVFileName = user.CVFileName,
+                CVViewUrl = user.CVViewUrl,
+                CVDownloadUrl = user.CVDownloadUrl,
+                CVUploadDate = user.CVUploadDate
             }).ToList();
 
             return CoachesDtos;
@@ -246,6 +258,163 @@ namespace projet1.Services
             var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
 
             return await _userManager.ResetPasswordAsync(user, decodedToken, newPassword);
+        }
+
+
+        public async Task<CVUploadResult> UploadCoachCVAsync(UploadCVModel model, ClaimsPrincipal currentUser)
+        {
+            try
+            {
+                // Get current user
+                var userId = currentUser.FindFirst("uid")?.Value;
+                if (string.IsNullOrEmpty(userId))
+                    return new CVUploadResult { Succeeded = false, Message = "User not found or not authenticated." };
+
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                    return new CVUploadResult { Succeeded = false, Message = "User not found." };
+
+                // Check if user is a coach
+                var userRoles = await _userManager.GetRolesAsync(user);
+                if (!userRoles.Contains("Coach"))
+                    return new CVUploadResult { Succeeded = false, Message = "Only coaches can upload CVs." };
+
+                // Validate file
+                if (model.CVFile == null || model.CVFile.Length == 0)
+                    return new CVUploadResult { Succeeded = false, Message = "Please select a valid CV file." };
+
+                // Check file type (allow PDF, DOC, DOCX)
+                var allowedExtensions = new[] { ".pdf", ".doc", ".docx" };
+                var fileExtension = Path.GetExtension(model.CVFile.FileName).ToLowerInvariant();
+                if (!allowedExtensions.Contains(fileExtension))
+                    return new CVUploadResult { Succeeded = false, Message = "Only PDF, DOC, and DOCX files are allowed." };
+
+                // Check file size (max 10MB)
+                if (model.CVFile.Length > 10 * 1024 * 1024)
+                    return new CVUploadResult { Succeeded = false, Message = "File size must be less than 10MB." };
+
+                // Delete existing CV if exists
+                if (!string.IsNullOrEmpty(user.CVFileId))
+                {
+                    var googleDriveService = _serviceProvider.GetRequiredService<IGoogleDriveService>();
+                    await googleDriveService.DeleteFileAsync(user.CVFileId);
+                }
+
+                // Upload to Google Drive
+                var driveService = _serviceProvider.GetRequiredService<IGoogleDriveService>();
+                var (fileId, viewUrl, downloadUrl) = await driveService.UploadFileAsync(model.CVFile);
+
+                // Update user with CV information
+                user.CVFileId = fileId;
+                user.CVFileName = model.CVFile.FileName;
+                user.CVViewUrl = viewUrl;
+                user.CVDownloadUrl = downloadUrl;
+                user.CVUploadDate = DateTime.UtcNow;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    // If user update failed, try to delete the uploaded file
+                    await driveService.DeleteFileAsync(fileId);
+                    var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                    return new CVUploadResult { Succeeded = false, Message = $"Failed to update user: {errors}" };
+                }
+
+                return new CVUploadResult
+                {
+                    Succeeded = true,
+                    Message = "CV uploaded successfully.",
+                    FileId = fileId,
+                    FileName = model.CVFile.FileName,
+                    ViewUrl = viewUrl,
+                    DownloadUrl = downloadUrl,
+                    UploadDate = user.CVUploadDate
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CVUploadResult { Succeeded = false, Message = $"An error occurred: {ex.Message}" };
+            }
+        }
+
+
+        public async Task<CVUploadResult> GetCoachCVAsync(ClaimsPrincipal currentUser)
+        {
+            try
+            {
+                var userId = currentUser.FindFirst("uid")?.Value;
+                if (string.IsNullOrEmpty(userId))
+                    return new CVUploadResult { Succeeded = false, Message = "User not found or not authenticated." };
+
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                    return new CVUploadResult { Succeeded = false, Message = "User not found." };
+
+                if (string.IsNullOrEmpty(user.CVFileId))
+                    return new CVUploadResult { Succeeded = false, Message = "No CV found." };
+
+                return new CVUploadResult
+                {
+                    Succeeded = true,
+                    Message = "CV retrieved successfully.",
+                    FileId = user.CVFileId,
+                    FileName = user.CVFileName,
+                    ViewUrl = user.CVViewUrl,
+                    DownloadUrl = user.CVDownloadUrl,
+                    UploadDate = user.CVUploadDate
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CVUploadResult { Succeeded = false, Message = $"An error occurred: {ex.Message}" };
+            }
+        }
+
+
+
+        public async Task<CVUploadResult> DeleteCoachCVAsync(ClaimsPrincipal currentUser)
+        {
+            try
+            {
+                var userId = currentUser.FindFirst("uid")?.Value;
+                if (string.IsNullOrEmpty(userId))
+                    return new CVUploadResult { Succeeded = false, Message = "User not found or not authenticated." };
+
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                    return new CVUploadResult { Succeeded = false, Message = "User not found." };
+
+                if (string.IsNullOrEmpty(user.CVFileId))
+                    return new CVUploadResult { Succeeded = false, Message = "No CV found to delete." };
+
+                // Delete from Google Drive
+                var driveService = _serviceProvider.GetRequiredService<IGoogleDriveService>();
+                var deleted = await driveService.DeleteFileAsync(user.CVFileId);
+
+                // Update user (remove CV info even if Drive deletion failed)
+                user.CVFileId = null;
+                user.CVFileName = null;
+                user.CVViewUrl = null;
+                user.CVDownloadUrl = null;
+                user.CVUploadDate = null;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                    return new CVUploadResult { Succeeded = false, Message = $"Failed to update user: {errors}" };
+                }
+
+                return new CVUploadResult
+                {
+                    Succeeded = true,
+                    Message = deleted ? "CV deleted successfully." : "CV removed from profile (file may still exist in Drive)."
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CVUploadResult { Succeeded = false, Message = $"An error occurred: {ex.Message}" };
+            }
         }
 
 

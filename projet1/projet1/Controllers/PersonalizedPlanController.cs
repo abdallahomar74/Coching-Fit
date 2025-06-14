@@ -17,37 +17,99 @@ namespace projet1.Controllers
         }
 
         [Authorize(Roles = "Coach")]
-        [HttpPost("publishPersonalizedPlan")]
-        public async Task<IActionResult> PublishForSubscriber( string subscriberUserName, IFormFile file)
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadPlan([FromQuery] string subscriberUserName,  IFormFile file)
         {
             try
             {
-                await _personalizedPlanService.AddPersonalizedPlanAsync(User, subscriberUserName, file);
-                return Ok("The plan has been successfully published to the subscriber.");
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "No file provided",
+                        error = "FILE_REQUIRED"
+                    });
+                }
+
+                var result = await _personalizedPlanService.AddPersonalizedPlanAsync(User, subscriberUserName, file);
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    error = "UNAUTHORIZED"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Internal server error",
+                    error = "SERVER_ERROR"
+                });
             }
         }
 
-        [Authorize(Roles = "User")]
-        [HttpGet("myPlans")]
-        public async Task<IActionResult> MyPlans()
+        [HttpGet("GetSubscriberFiles")]
+        public async Task<IActionResult> GetSubscriberPlans()
         {
-            var plans = await _personalizedPlanService.GetPlansForSubscriberAsync(User);
-            var result = plans.Select(p => new {
-                p.Id,
-                p.FileName,
-                FileUrl = $"{Request.Scheme}://{Request.Host}/{p.FilePath}",
-                p.FileType,
-                p.PublishedDate
-            });
-            if (!plans.Any())
-                return NotFound("There are no plans for you at this time.");
-            return Ok(result);
+            try
+            {
+                var result = await _personalizedPlanService.GetPlansForSubscriberAsync(User);
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    error = "UNAUTHORIZED"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Internal server error",
+                    error = "SERVER_ERROR"
+                });
+            }
         }
 
+        [HttpGet("download")]
+        public async Task<IActionResult> GetPlanDownloadUrl([FromQuery] int planId)
+        {
+            try
+            {
+                var result = await _personalizedPlanService.GetPlanDownloadUrlAsync(User, planId);
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    error = "UNAUTHORIZED"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Internal server error",
+                    error = "SERVER_ERROR"
+                });
+            }
+        }
     }
 
 }

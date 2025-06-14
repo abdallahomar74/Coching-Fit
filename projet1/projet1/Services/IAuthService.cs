@@ -16,6 +16,9 @@ namespace projet1.Services
         Task<IdentityResult> ResetPasswordAsync(string email, string encodedToken, string newPassword);
         Task<GetUserDataModel> GetProfileAsync(ClaimsPrincipal currentUser);
         Task<List<GetUserDataModel>> GetCoachesAsync();
+        Task<CVUploadResult> UploadCoachCVAsync(UploadCVModel model, ClaimsPrincipal currentUser);
+        Task<CVUploadResult> GetCoachCVAsync(ClaimsPrincipal currentUser);
+        Task<CVUploadResult> DeleteCoachCVAsync(ClaimsPrincipal currentUser);
 
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using projet1.Data;
 
@@ -11,9 +12,11 @@ using projet1.Data;
 namespace projet1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250613072120_AddGoogleDriveToPersonalizedPlan")]
+    partial class AddGoogleDriveToPersonalizedPlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,21 +168,6 @@ namespace projet1.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
-
-                    b.Property<string>("CVDownloadUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CVFileId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CVFileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CVUploadDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CVViewUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

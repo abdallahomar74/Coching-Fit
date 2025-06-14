@@ -10,15 +10,24 @@ namespace projet1.Data.Models
 
         [Required]
         public int CoachSubscriptionId { get; set; }
+
         [ForeignKey("CoachSubscriptionId")]
         public CoachSubscription CoachSubscription { get; set; }
+
         [Required]
         public string FileName { get; set; }
+
         [Required]
-        public string FilePath { get; set; }
+        public string GoogleDriveFileId { get; set; }  // بدل FilePath
+
+        [Required]
+        public string GoogleDriveUrl { get; set; }     // رابط العرض/التحميل
+
         [Required]
         public string FileType { get; set; }
-        public DateTime PublishedDate { get; set; } = DateTime.UtcNow;
 
+        public long FileSize { get; set; }
+
+        public DateTime PublishedDate { get; set; } = DateTime.UtcNow;
     }
 }

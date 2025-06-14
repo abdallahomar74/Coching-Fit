@@ -156,7 +156,7 @@ namespace projet1.Services
 
             _context.subscriptionplans.Add(plan); 
             var result = await _context.SaveChangesAsync();
-            return new OkObjectResult(result);
+            return new OkObjectResult(plan);
         }
 
         
